@@ -1,0 +1,13 @@
+type: client
+name: client-cloudnative
+public_key: QqdKxpGpG1TTuyjCayMpRRKwLm5kjyIKZybxjv8oDnQ=
+private_key: uA2r7XTFgpCa/qbxbJvxJCDO6dg6BU7FIwNSNvd46mo=
+peers:
+  - name: server
+    endpoint: server:8765
+    public_key: 2o3hItYcvPrcmDMog6rOhmdzZd6PH+QIZtCvZnVrslU=
+pipes:
+  - name: nginx
+    port: 8080
+    remote: nginx:80
+    peer: client-cloudnative # telling cloudgateway the remote endpoint is resolvable

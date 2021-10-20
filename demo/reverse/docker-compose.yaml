@@ -1,0 +1,50 @@
+version: "3.8"
+networks:
+  legacy:
+    name: legacy
+  cloudnative:
+    name: cloudnative
+services:
+  nginx:
+    networks:
+      - cloudnative
+    image: nginx
+  server:
+    networks:
+      - legacy
+      - cloudnative
+    image: ghcr.io/fi-ts/cloud-gateway:latest
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - ./server:/etc/cloudgateway
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - CLOUD_GATEWAY_ENGINE=boringtun
+      - CLOUD_GATEWAY_LOG_LEVEL=debug
+  client-cloudnative:
+    networks:
+      - cloudnative
+    image: ghcr.io/fi-ts/cloud-gateway:latest
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - ./client/cloudnative:/etc/cloudgateway
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - CLOUD_GATEWAY_ENGINE=boringtun
+      - CLOUD_GATEWAY_LOG_LEVEL=debug
+  client-legacy:
+    networks:
+      - legacy
+    image: ghcr.io/fi-ts/cloud-gateway:latest
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - ./client/legacy:/etc/cloudgateway
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - CLOUD_GATEWAY_ENGINE=boringtun
+      - CLOUD_GATEWAY_LOG_LEVEL=debug
+    ports:
+      - 8080:8080

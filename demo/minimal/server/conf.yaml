@@ -1,0 +1,11 @@
+type: server
+name: server
+public_key: 2o3hItYcvPrcmDMog6rOhmdzZd6PH+QIZtCvZnVrslU=
+private_key: YExoeogF9Ekn30/ybaCYHGsvQwT93+6IQLAp6xk2bFM=
+peers:
+  - name: client
+    public_key: QqdKxpGpG1TTuyjCayMpRRKwLm5kjyIKZybxjv8oDnQ=
+pipes:
+  - name: nginx
+    port: 8080
+    remote: nginx:80

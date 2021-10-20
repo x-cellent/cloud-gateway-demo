@@ -1,0 +1,12 @@
+type: client
+name: client-legacy
+public_key: L0pt7T0BGsk4nByoS0I8goLoCRTx0CeKCsSlNIBX2Gk=
+private_key: gEPdRpgPz5xoAGXf0p1mf5Cfan++uIDB8r3WmZVWznA=
+peers:
+  - name: server
+    endpoint: server:8765
+    public_key: 2o3hItYcvPrcmDMog6rOhmdzZd6PH+QIZtCvZnVrslU=
+pipes:
+  - name: nginx
+    port: 8080
+    remote: nginx:80
