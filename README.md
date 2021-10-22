@@ -1,6 +1,6 @@
 # Cloud-Gateway builds VPN Among Services in the Cloud
 
-At [x-cellent](https://www.x-cellent.com/), we are building and maintaining [cloud-native systems](https://metal-stack.io/) and often we are faced with complicated networking problems when we try to connect two applications built with different generations of technologies. On the one hand, the network traffic is often, if not always, regulated by multiple firewalls and/or NAT. On the other hand, some legacy systems use private IP addresses outside the RFC 1918 space, which makes direct routing impossible. That's where _Cloud-Gateway_ comes in handy.
+At [x-cellent](https://www.x-cellent.com/), we are building and maintaining [cloud-native systems](https://metal-stack.io/) and often we are faced with complicated networking problems when we try to connect two applications built with different generations of technologies. On the one hand, the network traffic is often, if not always, regulated by multiple firewalls and/or NAT. On the other hand, some legacy systems use private IP addresses outside the RFC 1918 space, which makes direct routing impossible. That's where **_Cloud-Gateway_** comes in handy.
 
 ## Demo
 
