@@ -62,8 +62,11 @@ docker compose up
 
 Now, our demo is up and running. Let's open another terminal and run `curl localhost:8080`. Voilà! We shall see the default welcome page of nginx.
 
-- Cloud-Gateway connects apps in different private networks securely and easily.
-- Cloud-Gateway is backed by end-to-end VPN and easy-to-configure TCP proxy.
+A high-level overview looks as follows:
+
+![architecture](figure/pipe.drawio.svg)
+
+Cloud-Gateway securely connects curl and nginx in the private networks, _cloudnative_ and _legacy_, by leveraging the end-to-end VPN protocol WireGuard&reg; and an easy-to-configure TCP proxy. Let's dive into the individual components of Cloud-Gateway.
 
 ## VPN with WireGuard&reg;
 
@@ -75,7 +78,7 @@ minimal-server-1  | [#] ip -4 address add 10.192.0.121/24 dev wg0
 minimal-client-1  | [#] ip -4 address add 10.192.0.245/32 dev wg0
 ```
 
-- Under the hood, Cloud-Gateway is powered by [WireGuard&reg;](https://www.wireguard.com/), which creates the interface _wg0_. This interface is assigned an IP address and a CIDR mask.
+- Under the hood, Cloud-Gateway is powered by [BoringTun](https://github.com/cloudflare/boringtun) which is an userspace implmentation of [WireGuard&reg;](https://www.wireguard.com/). The interface _wg0_ is created by [WireGuard&reg;] and assigned an IP address and a CIDR mask.
 - The IP address is rather clear - a private IP address in the VPN.
 - The CIDR masks of the server and the client are different.
 - For the server, _/24_ implies that there are multiple peers, which means multiple clients in Cloud-Gateway. (There's no differentiation between server and client in WireGuard&reg;, but there is one in Cloud-Gateway.) Those clients are assigned private IP addresses in the range _10.192.0.0/24_.
@@ -129,7 +132,7 @@ peer: 2o3hItYcvPrcmDMog6rOhmdzZd6PH+QIZtCvZnVrslU=
   transfer: 860 B received, 1.07 KiB sent
 ```
 
-Notice that for the _wg0_ at the server, the _listening port_ _8765_ is assigned by Cloud-Gateway, whereas at the client the _listening port_ is randomly assigned by WireGuard&reg;. The reason behind this is that Cloud-Gateway was conceived where we need a server sitting in the network _legacy_ and this server should respond to requests from applications in a cloud-native environment, like kubernetes. In order to let other clients find the server in the public network, the port for VPN communication at the server needs to be fixed.
+Notice that for the _wg0_ at the server, the _listening port_ _8765_ is configured by Cloud-Gateway, whereas at the client the _listening port_ is randomly assigned by [WireGuard&reg;](https://www.wireguard.com/). The reason behind this is that Cloud-Gateway was conceived where we need a server sitting in the network _legacy_ and this server should respond to requests from applications in a cloud-native environment, like kubernetes. In order to let other clients find the server in the public network, the port for VPN communication at the server needs to be fixed.
 
 The _endpoint_ is the peer's endpoint in the public network, so that the server and client can find each other. In this demo, the endpoint is the IP address of the container. We can prove that in another terminal.
 
@@ -386,6 +389,10 @@ docker compose up
 
 Then, open another terminal and run `curl localhost:8080`. Voilà! We shall see the default welcome page of nginx again.
 
+Let's visualize the overview again!
+
+![architecture](figure/reverse-pipe.drawio.svg)
+
 Let's go through the life of a packet.
 
 ```terminal
@@ -420,5 +427,5 @@ Why is that? Actually, in the eyes of the client in the network _legacy_, nothin
 
 ## Conclusion
 
-- Cloud-Gateway enables encrypted UDP communication between different private networks, which is backed by WireGuard&reg;.
-- Cloud-Gateway provides intuitive _pipe_ syntax to configure the built-in TCP proxy.
+- Cloud-Gateway enables encrypted UDP communication between different private networks, which is backed by [BoringTun](https://github.com/cloudflare/boringtun), a userspace implementation of [WireGuard&reg;](https://www.wireguard.com/) VPN.
+- Cloud-Gateway provides intuitive _pipe_ syntax to configure the built-in TCP proxy. With _pipe_ the services on the VPN can be managed in a coherent and expressive manner.
