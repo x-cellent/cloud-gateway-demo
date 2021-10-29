@@ -4,7 +4,7 @@ At [x-cellent](https://www.x-cellent.com/), we are building and maintaining [clo
 
 ## Demo
 
-Here's a minimal [_docker-compose.yaml_](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/minimal/docker-compose.yaml).
+Here's a minimal [_docker-compose.yaml_](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/minimal/docker-compose.yaml).
 
 ```yaml
 version: "3.8"
@@ -212,7 +212,7 @@ listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 
 ## Pipe
 
-Another pillar of Cloud-Gateway is _pipe_, which can be found in Cloud-Gateway's configuration of both the [server](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/minimal/server/conf.yaml) and the [client](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/minimal/client/conf.yaml). Remember that this file is consumed by Cloud-Gateway via _volumes_ in the _docker-compose.yaml_ above.
+Another pillar of Cloud-Gateway is _pipe_, which can be found in Cloud-Gateway's configuration of both the [server](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/minimal/server/conf.yaml) and the [client](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/minimal/client/conf.yaml). Remember that this file is consumed by Cloud-Gateway via _volumes_ in the _docker-compose.yaml_ above.
 
 ```yaml
 name: nginx
@@ -324,7 +324,7 @@ localhost:8080 (mapped to the client container's port 8080)
 
 ## Reverse Pipe
 
-How about if we want to reach a service in the network _cloudnative_ from a client in the network _legacy_? _Reverse pipe_ comes to rescue. In contrast to normal pipes, where a service is resolvable within the server's network without going through the VPN to another network, a revere pipe is for the scenario where a service does sit in another network and the server needs the VPN to fetch it. Here's the [_docker-compose.yaml_](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/reverse/docker-compose.yaml) for such a reverse pipe.
+How about if we want to reach a service in the network _cloudnative_ from a client in the network _legacy_? _Reverse pipe_ comes to rescue. In contrast to normal pipes, where a service is resolvable within the server's network without going through the VPN to another network, a revere pipe is for the scenario where a service does sit in another network and the server needs the VPN to fetch it. Here's the [_docker-compose.yaml_](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/reverse/docker-compose.yaml) for such a reverse pipe.
 
 ```yaml
 version: "3.8"
@@ -406,7 +406,7 @@ localhost:8080 (mapped to the client-legacy container port 8080)
 -> nginx-container-IP:80
 ```
 
-Finally, let's check the _cong.yaml_ of Cloud-Gateway for each container. Note that for the [server](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/reverse/server/conf.yaml) and the [client](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/reverse/client/cloudnative/conf.yaml) in the network _cloudnative_, we have to specify the peer:
+Finally, let's check the _cong.yaml_ of Cloud-Gateway for each container. Note that for the [server](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/reverse/server/conf.yaml) and the [client](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/reverse/client/cloudnative/conf.yaml) in the network _cloudnative_, we have to specify the peer:
 
 ```yaml
 name: nginx
@@ -415,7 +415,7 @@ remote: nginx:80
 peer: client-cloudnative
 ```
 
-However, for the [client](https://github.com/x-cellent/cloud-gateway-demo/tree/main/demo/reverse/client/legacy/conf.yaml) in the network _legacy_, it's the same as the previous demo:
+However, for the [client](https://github.com/x-cellent/cloud-gateway-demo/blob/master/demo/reverse/client/legacy/conf.yaml) in the network _legacy_, it's the same as the previous demo:
 
 ```yaml
 name: nginx
