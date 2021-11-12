@@ -78,7 +78,7 @@ minimal-server-1  | [#] ip -4 address add 10.192.0.121/24 dev wg0
 minimal-client-1  | [#] ip -4 address add 10.192.0.245/32 dev wg0
 ```
 
-- Under the hood, Cloud-Gateway is powered by [BoringTun](https://github.com/cloudflare/boringtun) which is an userspace implmentation of [WireGuard&reg;](https://www.wireguard.com/). The interface _wg0_ is created by [WireGuard&reg;] and assigned an IP address and a CIDR mask.
+- Under the hood, Cloud-Gateway is powered by [BoringTun](https://github.com/cloudflare/boringtun) which is an userspace implmentation of [WireGuard&reg;](https://www.wireguard.com/). The interface _wg0_ is created by WireGuard&reg; and assigned an IP address and a CIDR mask.
 - The IP address is rather clear - a private IP address in the VPN.
 - The CIDR masks of the server and the client are different.
 - For the server, _/24_ implies that there are multiple peers, which means multiple clients in Cloud-Gateway. (There's no differentiation between server and client in WireGuard&reg;, but there is one in Cloud-Gateway.) Those clients are assigned private IP addresses in the range _10.192.0.0/24_.
